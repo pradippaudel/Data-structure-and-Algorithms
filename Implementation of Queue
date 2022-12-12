@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<conio.h>
 #define MAXSIZE 5
 int  queue[MAXSIZE];
 int front=-1 ,rear=-1;
