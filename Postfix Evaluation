@@ -1,0 +1,97 @@
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+#include<ctype.h>
+#define MAXSIZE 100
+
+int tos=-1;
+int stack[MAXSIZE];
+
+
+void push(int item)
+{
+	
+	if (tos>= MAXSIZE- 1)
+	 {
+        printf("stack over flow");
+    }
+    else
+	 {
+        tos = tos + 1;
+        stack[tos] = item;
+    }
+}
+int pop()
+{
+    int item;
+    if (tos==-1)
+	 {
+        printf("stack under flow");
+    }
+    else 
+	{
+        item = stack[tos];
+        tos = tos - 1;
+        return item;
+    }
+}
+
+int main()
+{
+char postfix[100],ch;
+int l,i,op1,op2,res;
+printf("Enter the valid postfix expression:");
+gets(postfix);
+for(i=0;postfix[i]!='\0';i++)
+{
+ch=postfix[i];
+if(isdigit(ch))	
+{
+push(ch-'0');
+}
+/* we saw an operand,push the digit onto stack
+ch - '0' is used for getting digit rather than ASCII code of digit */
+//else if(ch == '+'|| ch == '-' || ch == '*' || ch == '/'||ch=='^')
+else
+{	
+	op2=pop();
+	op1=pop();
+		switch(ch)
+		{
+		case '+':
+		res=op1+op2;
+		push(res);
+		break;
+			
+		case '-':
+		res=op1-op2;
+		push(res);
+		break;	
+		
+		case '*':
+		res=op1*op2;
+		push(res);
+		break;
+		
+		case '/':
+		res=op1/op2;
+		push(res);
+		break;
+		
+		case '^':
+		res=pow(op1,op2);
+		push(res);
+		break;
+			
+		default:
+		printf("Invalid character!");
+		exit(0);
+		}
+}
+	
+}
+printf("Given postfix expression is:");
+puts(postfix);
+printf("Result after evaluation=%d",pop());
+return 0;	
+}
